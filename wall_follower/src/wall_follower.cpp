@@ -134,7 +134,6 @@ void laser_callback(const sensor_msgs::LaserScan::ConstPtr& scan_msg)
 
         if (range_min <= 0.5 && !thats_a_door) {
             following_wall = true;
-            crashed = false;
             robot_move(STOP);
 
             if (left_side >= right_side) {
@@ -151,7 +150,7 @@ void laser_callback(const sensor_msgs::LaserScan::ConstPtr& scan_msg)
                 if (range_max >= 2.0) {
                     thats_a_door = true;
                     following_wall = false;
-                    //robot_move(TURN_RIGHT);
+                    // robot_move(TURN_RIGHT);
                     ROS_INFO("[ROBOT] I am following wall and my max range > 2.0 Range Max: %f \n", range_max);
                 }
             }

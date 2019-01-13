@@ -350,10 +350,10 @@
         <collision name='Wall_36_Collision'>
           <geometry>
             <box>
-              <size>2.71571 0.3 2.5</size>
+              <size>2.2 0.3 2.5</size>
             </box>
           </geometry>
-          <pose frame=''>0 0 1.25 0 -0 0</pose>
+          <pose frame=''>-0.25 0 1.25 0 -0 0</pose>
           <max_contacts>10</max_contacts>
           <surface>
             <contact>
@@ -369,10 +369,10 @@
           </surface>
         </collision>
         <visual name='Wall_36_Visual'>
-          <pose frame=''>0 0 1.25 0 -0 0</pose>
+          <pose frame=''>-0.25 0 1.25 0 -0 0</pose>
           <geometry>
             <box>
-              <size>2.71571 0.3 2.5</size>
+              <size>2.2 0.3 2.5</size>
             </box>
           </geometry>
           <material>
