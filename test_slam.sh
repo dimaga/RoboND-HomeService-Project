@@ -1,10 +1,10 @@
 #!/bin/sh
 
-xterm -e " source ../../devel/setup.bash; roslaunch RoboND-HomeService-Project turtlebot_world.launch" &
+xterm -e " source ../../devel/setup.bash; roslaunch turtlebot_gazebo turtlebot_world.launch" &
 sleep 5
-xterm -e " source ../../devel/setup.bash; roslaunch RoboND-HomeService-Project gmapping_demo.launch" &
+xterm -e " source ../../devel/setup.bash; roslaunch turtlebot_gazebo gmapping_demo.launch" &
 sleep 5
-xterm -e " source ../../devel/setup.bash; roslaunch RoboND-HomeService-Project view_navigation.launch" &
+xterm -e " source ../../devel/setup.bash; roslaunch turtlebot_rviz_launchers view_navigation.launch" &
 sleep 5
-xterm -e " source ../../devel/setup.bash; roslaunch RoboND-HomeService-Project keyboard_teleop.launch" &
+xterm -e " source ../../devel/setup.bash; roslaunch turtlebot_teleop keyboard_teleop.launch" 
 
