@@ -43,35 +43,35 @@ bool robot_move(const ROBOT_MOVEMENT move_type)
     else if (move_type == FORWARD) {
         ROS_INFO("[ROBOT] Always FORWARD! \n");
         motor_command.angular.z = 0.0;
-        motor_command.linear.x = 0.125;
+        motor_command.linear.x = 0.5;
     }
 
     else if (move_type == BACKWARD) {
         ROS_INFO("[ROBOT] I'm going back! \n");
-        motor_command.linear.x = -0.1875;
+        motor_command.linear.x = -0.75;
         motor_command.angular.z = 0.0;
     }
 
     else if (move_type == TURN_LEFT) {
         ROS_INFO("[ROBOT] I'm turning left! \n");
         motor_command.linear.x = 0.0;
-        motor_command.angular.z = 0.25;
+        motor_command.angular.z = 1.0;
     }
 
     else if (move_type == TURN_RIGHT) {
         ROS_INFO("[ROBOT] I'm turning right! \n");
         motor_command.linear.x = 0.0;
-        motor_command.angular.z = -0.25;
+        motor_command.angular.z = -1.0;
     }
     else if (move_type == GO_RIGHT) {
         ROS_INFO("[ROBOT] I'm goin right! \n");
-        motor_command.linear.x = 0.0625;
-        motor_command.angular.z = -0.0625;
+        motor_command.linear.x = 0.25;
+        motor_command.angular.z = -0.25;
     }
     else if (move_type == GO_LEFT) {
         ROS_INFO("[ROBOT] I'm goin left! \n");
-        motor_command.linear.x = 0.0625;
-        motor_command.angular.z = 0.0625;
+        motor_command.linear.x = 0.25;
+        motor_command.angular.z = 0.25;
     }
     else {
         ROS_INFO("[ROBOT_MOVE] Move type wrong! \n");
