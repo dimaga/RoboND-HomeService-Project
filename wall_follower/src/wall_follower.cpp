@@ -99,6 +99,8 @@ void laser_callback(const sensor_msgs::LaserScan::ConstPtr& scan_msg)
     float left_side = 0.0, right_side = 0.0;
     float range_min = laser_msg.range_max, range_max = laser_msg.range_min;
     int nan_count = 0;
+    bool close_obj = false;
+
     for (size_t i = 0; i < range_size; i++) {
         if (laser_ranges[i] < range_min) {
             range_min = laser_ranges[i];
@@ -119,10 +121,19 @@ void laser_callback(const sensor_msgs::LaserScan::ConstPtr& scan_msg)
         else {
             right_side += laser_ranges[i];
         }
+
+        if (!close_obj) {
+            if (i > range_size / 2 - range_size / 8 &&
+                i < range_size / 2 + range_size / 8 &&
+                laser_ranges[i] < 0.25) {
+
+                close_obj = true;
+            }
+        }
     }
 
     // Check if the robot has crashed into a wall
-    if (nan_count > (range_size * 0.9) || laser_ranges[range_size / 2] < 0.25) {
+    if (nan_count > (range_size * 0.9) || close_obj) {
         crashed = true;
     }
     else {
