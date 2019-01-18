@@ -1,4 +1,4 @@
-image: ./World/MyRoomWorld.pgm
+image: MyRoomWorld.pgm
 resolution: 0.050000
 origin: [-5.000000, -5.000000, 0.000000]
 negate: 0
