@@ -1,6 +1,7 @@
 #include <ros/ros.h>
 #include <visualization_msgs/Marker.h>
-
+#include <geometry_msgs/PoseWithCovariance.h>
+#include <nav_msgs/Odometry.h>
 
 void show_marker(ros::Publisher& marker_pub, double x, double y)
 {
@@ -62,6 +63,40 @@ void hide_marker(ros::Publisher& marker_pub)
   marker_pub.publish(marker);
 }
 
+static bool goal_reached_g = false;
+static double goal_x_g = 0.0;
+static double goal_y_g = 0.0;
+
+
+void goal_callback(const nav_msgs::Odometry::ConstPtr& msg)
+{
+  const geometry_msgs::Pose p = msg->pose.pose;
+  const double dx = p.position.x - goal_x_g;
+  const double dy = p.position.y - goal_y_g;
+  if (dx * dx + dy * dy < 0.4)
+  {
+    goal_reached_g = true;
+  }
+}
+
+
+void wait_for_goal(ros::Subscriber& subscriber, double x, double y)
+{
+  goal_x_g = x;
+  goal_y_g = y;
+  goal_reached_g = false;
+
+  while (!goal_reached_g)
+  {
+    if (!ros::ok())
+    {
+      exit(0);
+    }
+    ros::spinOnce();
+    sleep(1);
+  }
+}
+
 
 int main( int argc, char** argv )
 {
@@ -81,9 +116,13 @@ int main( int argc, char** argv )
   }
 
   show_marker(marker_pub, 1.0, 3.0);
-  sleep(5);
+ 
+  ros::Subscriber subscriber = n.subscribe("odom", 1, goal_callback);
+  wait_for_goal(subscriber, 1.0, 3.0);
+
   hide_marker(marker_pub);
-  sleep(5);
+
+  wait_for_goal(subscriber, -3.0, 3.0);
   show_marker(marker_pub, -3.0, 3.0);
   sleep(5);
 }
